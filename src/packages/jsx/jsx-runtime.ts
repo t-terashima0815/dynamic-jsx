@@ -1,17 +1,27 @@
-export namespace JSX {
-  export interface Element {
-    type: string
-    props: any
-    children: JSX.Element[]
-  }
-  export type ElementType = keyof JSX.IntrinsicElements | ((props: any) => JSX.Element | Promise<JSX.Element>)
-  export interface IntrinsicElements {
-    [elem: string]: any
+// Define the JSX namespace using a module declaration
+declare global {
+  namespace JSX {
+    interface Element {
+      type: string
+      props: any
+      children: Element[]
+    }
+
+    type ElementType = keyof IntrinsicElements | ((props: any) => Element | Promise<Element>)
+
+    interface IntrinsicElements {
+      [elem: string]: any
+    }
   }
 }
 
+// Re-export the types for use in this module
+export type Element = JSX.Element
+export type ElementType = JSX.ElementType
+export type IntrinsicElements = JSX.IntrinsicElements
+
 export type Node<P extends Record<string | number | symbol, unknown> = {}>
-  = FunctionComponentNode<P> | JSX.IntrinsicElements | TextElementNode | FragmentElementNode
+  = FunctionComponentNode<P> | IntrinsicElements | TextElementNode | FragmentElementNode
 
 export type FunctionComponentNode<P extends Record<string | number | symbol, unknown> = {}> = {
   readonly $$jsx: {
@@ -20,7 +30,7 @@ export type FunctionComponentNode<P extends Record<string | number | symbol, unk
   }
 }
 
-export type FC<P extends {} = {}> = (props: P) => JSX.Element
+export type FC<P extends {} = {}> = (props: P) => Element
 
 export type TextElementNode = {
   readonly $$jsx: {

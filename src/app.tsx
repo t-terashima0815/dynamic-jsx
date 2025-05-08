@@ -1,14 +1,14 @@
-import createRoot from './jsx/render'
-const headingArray = ['Hello', 'World']
+import createRoot from '@/packages/jsx/render'
+import Header from "@/components/Header.tsx";
+
 export const App = () => <>
-  { headingArray.map(heading => <h1>{heading}</h1>) }
+  <Header />
 </>
 
-const app = document.getElementById('app') ?? document.body
+const app = document.getElementById('app')
 
-(async () => {
-  await createRoot(<App />, app)
-  headingArray.push('!')
-  await createRoot(<App />, app)
-})()
-
+if (app) {
+  (async () => {
+    await createRoot(<App/>, app)
+  })()
+}

@@ -1,4 +1,4 @@
-import type { Node, TextElementNode, FragmentElementNode, FunctionComponentNode } from './jsx-runtime'
+import type { Node, TextElementNode, FragmentElementNode, FunctionComponentNode } from '@/packages/jsx/jsx-runtime.ts'
 
 export default async function createRoot(element: Node, container: HTMLElement) {
   container.innerHTML = ''
